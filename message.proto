@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package proto;
+
+message SearchFBLiveCustomersRequest {
+  string user_id = 1;
+  uint64 facebook_live_id = 2;
+  uint32 shop_id = 3;
+  string search = 4;
+  uint32 status = 5;
+  int32 limit = 6;
+  int32 offset = 7;
+}
+
+message SearchFBLiveCustomersResponse { 
+  bool success = 1; 
+  Data data = 2;
+}
+
+message Data {
+    repeated FacebookCustomers facebook_customers  = 2;
+}
+
+message FacebookCustomers {
+    uint32 facebook_live_order_id = 1;
+    uint64 facebook_customer_id = 2;
+    string first_name = 3;
+    string last_name = 4;
+    uint32 status = 5;
+    string status_name = 6;
+    string facebook_customer_profile_url = 7;
+}
+
+
+
+service SocialService {
+  rpc SearchFBLiveCustomers(SearchFBLiveCustomersRequest) returns (SearchFBLiveCustomersResponse);
+}
