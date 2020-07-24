@@ -2,6 +2,8 @@ syntax = "proto3";
 
 package proto;
 
+import "google/protobuf/any.proto";
+
 message SearchFBLiveCustomersRequest {
   string user_id = 1;
   uint64 facebook_live_id = 2;
@@ -14,34 +16,8 @@ message SearchFBLiveCustomersRequest {
 
 message SearchFBLiveCustomersResponse { 
   bool success = 1; 
-  Data data = 2;
+  google.protobuf.Any data = 2;
 }
-
-message Data {
-    CountStatus count_status = 1;
-    repeated FacebookCustomers facebook_customers  = 2;
-}
-
-message FacebookCustomers {
-    uint32 facebook_live_order_id = 1;
-    uint64 facebook_customer_id = 2;
-    string first_name = 3;
-    string last_name = 4;
-    uint32 status = 5;
-    string status_name = 6;
-    string facebook_customer_profile_url = 7;
-}
-
-message CountStatus {
-  int32 all = 1;
-  int32 pending = 2;
-  int32 verifying = 3;
-  int32 confirmed = 4;
-  int32 waiting_for_edit = 5;
-  int32 cancel = 6;
-}
-
-
 
 service SocialService {
   rpc SearchFBLiveCustomers(SearchFBLiveCustomersRequest) returns (SearchFBLiveCustomersResponse);
